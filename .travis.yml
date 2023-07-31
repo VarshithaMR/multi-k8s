@@ -1,0 +1,27 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t varshitha/react_docker-react -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true varshitha/react_docker-react npm run test -- --coverage
+
+after_success:
+  - docker build varshitha/multi-client ./client
+  - docker build varshitha/multi-nginx ./nginx
+  - docker build varshitha/multi-server ./server
+  - docker build varshitha/multi-worker ./worker
+    
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-north-1"
+  app: "docker"
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-eu-north-1-576622836112"
+  bucket_path: "docker"
+  on:
+    all_branches: true
+aws_access_key: $AWS_ACCESS_KEY_ID
+aws_secret_key: $AAWS_SECRET_ACCESS_KEY
