@@ -13,7 +13,11 @@ after_success:
   - docker build varshitha/multi-nginx ./nginx
   - docker build varshitha/multi-server ./server
   - docker build varshitha/multi-worker ./worker
-    
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push varshitha/multi-client
+  - docker push varshitha/multi-nginx 
+  - docker push varshitha/multi-server
+  - docker push varshitha/multi-worker
 deploy:
   provider: elasticbeanstalk
   region: "eu-north-1"
