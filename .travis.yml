@@ -9,10 +9,10 @@ script:
   - docker run -e CI=true varshitha/react_docker-react npm run test -- --coverage
 
 after_success:
-  - docker build varshitha/multi-client ./client
-  - docker build varshitha/multi-nginx ./nginx
-  - docker build varshitha/multi-server ./server
-  - docker build varshitha/multi-worker ./worker
+  - docker build -t varshitha/multi-client ./client
+  - docker build -t varshitha/multi-nginx ./nginx
+  - docker build -t varshitha/multi-server ./server
+  - docker build -t varshitha/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push varshitha/multi-client
   - docker push varshitha/multi-nginx 
