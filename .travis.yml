@@ -1,5 +1,4 @@
 sudo: required
-<<<<<<< HEAD
 services: 
   - docker
 
@@ -10,37 +9,12 @@ script:
   - docker run -e CI=true varshitha/react_docker-react npm run test -- --coverage
 
 after_success:
-  - docker build -t varshitha/multi-client ./client
-  - docker build -t varshitha/multi-nginx ./nginx
-  - docker build -t varshitha/multi-server ./server
-  - docker build -t varshitha/multi-worker ./worker
+  - docker build -t 1sonudocker/multi-client ./client
+  - docker build -t 1sonudocker/multi-nginx ./nginx
+  - docker build -t 1sonudocker/multi-server ./server
+  - docker build -t 1sonudocker/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push varshitha/multi-client
-  - docker push varshitha/multi-nginx 
-  - docker push varshitha/multi-server
-  - docker push varshitha/multi-worker
-=======
-language: generic
-
-services:
-  - docker
-
-before_install:
-  - docker build -t stephengrider/react-test -f ./client/Dockerfile.dev ./client
-
-script:
-  - docker run -e CI=true stephengrider/react-test npm test
-
-after_success:
-  - docker build -t stephengrider/multi-client ./client
-  - docker build -t stephengrider/multi-nginx ./nginx
-  - docker build -t stephengrider/multi-server ./server
-  - docker build -t stephengrider/multi-worker ./worker
-  # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to docker hub
-  - docker push stephengrider/multi-client
-  - docker push stephengrider/multi-nginx
-  - docker push stephengrider/multi-server
-  - docker push stephengrider/multi-worker
->>>>>>> 7616849 (new commit)
+  - docker push 1sonudocker/multi-client
+  - docker push 1sonudocker/multi-nginx 
+  - docker push 1sonudocker/multi-server
+  - docker push 1sonudocker/multi-worker

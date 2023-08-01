@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion":2,
+    "containerDefinitions":[
+        {
+            "name":"client",
+            "hostname":"client",
+            "image":"1sonudocker/multi-client",
+            "essential":false
+        },
+        {
+            "name":"server",
+            "hostname":"api",
+            "image":"1sonudocker/multi-server",
+            "essential":false
+        },
+        {
+            "name":"worker",
+            "hostname":"worker",
+            "image":"1sonudocker/multi-worker",
+            "essential":false
+        },
+        {
+            "name":"nginx",
+            "hostname":"nginx",
+            "image":"1sonudocker/multi-nginx",
+            "essential":true,
+            "portMappings": [
+                {
+                    "hostPort":80,
+                    "ContainerPort":80
+                }
+            ],
+            "links": ["client","server"]
+        }
+    ]
+}
